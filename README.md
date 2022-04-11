@@ -1,110 +1,85 @@
-# Scan2CAD (CVPR 2019 Oral)
+# Scan To CAD
 
-We present *Scan2CAD*, a novel data-driven method that learns to align 3D CAD models from a shape database to 3D scans.
+## Download Dataset
 
-<img src="Assets/github-pics/teaser.png" alt="Scan2CAD" width="640" >
+```bash
+ScanNet :
+https://github.com/ScanNet/ScanNet
 
- 
-[Download Paper (.pdf)](https://arxiv.org/pdf/1811.11187.pdf) 
+ShapeNet :
+https://shapenet.org/
 
-[See Youtube Video](https://www.youtube.com/watch?v=PiHSYpgLTfA&t=1s)
-
-[Link to the annotation webapp source code](https://github.com/skanti/Scan2CAD-Annotation-Webapp)
-
-
-[Scan2CAD Benchmark Link](http://kaldir.vc.in.tum.de/scan2cad_benchmark/)
-
-
-[Get the *Scan2CAD* dataset - we reply very quickly:)](https://goo.gl/forms/gJRMjzj05whyJDlO2)
-
-## Demo samples
-### Scan2CAD Alignments
-
-<img src="https://i.ibb.co/wLPGtYt/anim0.gif" alt="Loadu" width="640" >
-
-### Orientated Bounding Boxes for Objects
-
-<img src="https://i.ibb.co/BL5pRLz/tmp.png" alt="Scan2CAD" width="512" >
-
-
-
-## Description
-
-Dataset used in the research project: **Scan2CAD: Learning CAD Model Alignment in RGB-D Scans**
-
-For the public dataset, we provide annotations with:
-
-* `97607` keypoint correspondences between Scan and CAD models
-* `14225` objects between Scan and CAD
-* `1506` scans
-
-An additional annotated hidden testset, that is used for our Scan2CAD benchmark contains:
-
-* `7557` keypoint correspondences between Scan and CAD models
-* `1160` objects between Scan and CAD
-* `97` scans
-
-
-## Benchmark
-
-We published a new benchmark for CAD model alignment in 3D scans (and more tasks to come) [here](http://kaldir.vc.in.tum.de/scan2cad_benchmark/).
-
-
-## Get started
-
-1. Clone repo:
-
-```git clone https://github.com/skanti/Scan2CAD.git```
-
-2. Ask for dataset: (see sections below. You will need *ScanNet*, *ShapeNet* and *Scan2CAD*). 
-
-3. Copy dataset content into `./Routines/Script/`.
-
-4. Visualize data:
-
-```python3 ./Routines/Script/Annotation2Mesh.py```
-
-5. Compile `c++` programs
-
-```
-cd {Vox2Mesh, DFGen, CropCentered}
-make
+Scan2CAD :
+https://github.com/skanti/Scan2CAD
 ```
 
-6. Voxelize CADs (shapenet):
+and run this
 
-```python3 ./Routines/Script/CADVoxelization.py```
+```bash
+ln -s <path-to-ScanNet-folder-root> ./Routines/Script/
+ln -s <path-to-ShapeNet-folder-root> ./Routines/Script/
+```
 
-7. Generate data (correspondences):
+## Install Requirements
 
-```python3 ./Routines/Script/GenerateCorrespondences.py```
+```bash
+conda create -n cad python=3.8
+pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
+pip install numpy numpy-quaternion plyfile PyWavefront pybind11
+```
 
-8. Start `pytorch` training for heatmap prediction:
+## Build
+
+```bash
+cd Routines/Vox2Mesh
+make -j
+cd ../DFGen
+make -j
+cd ../CropCentered
+make -j
+cd ../..
+```
+
+## Run
+
+### Visualize data
 
 ```
-cd ./Network/pytorch
+python ./Routines/Script/Annotation2Mesh.py
+```
+
+### Voxelize CADs (shapenet)
+
+```
+python ./Routines/Script/CADVoxelization.py
+```
+
+### Generate data (correspondences)
+
+```
+python ./Routines/Script/GenerateCorrespondences.py
+```
+
+### Train heatmap prediction:
+
+```
+cd Network/pytorch
 ./run.sh
 ```
 
-9. Run alignment algorithm:
+### Run alignment algorithm:
 
 ```
 cd Routines/Scripts
-python3 Alignment9DoF.py --projectdir /Network/pytorch/output/dummy
+python Alignment9DoF.py --projectdir /Network/pytorch/output/dummy
 ```
 
-10. Mesh and view alignment result:
+### Mesh and view alignment result:
 
 ```
 cd Routines/Scripts
-python3 Alignment2Mesh.py --alignment ./tmp/alignments/dummy/scene0470_00.csv --out ./
+python Alignment2Mesh.py --alignment ./tmp/alignments/dummy/scene0470_00.csv --out ./
 ```
-
-## Download *Scan2CAD* Dataset (Annotation Data)
-
-If you would like to download the *Scan2CAD* dataset, please fill out this [google-form](https://goo.gl/forms/gJRMjzj05whyJDlO2). 
-
-A download link will be provided to download a `.zip` file (approx. 8MB) that contains the dataset.
 
 ## Format of the Datasets
 
@@ -161,12 +136,6 @@ This file is merely a helper file as the information in this file are deducible 
   },
 },
 ```
-
-### Visualization of the Dataset + BBoxes
-
-Once you have downloaded the dataset files, you can run `./Routines/Script/Annotation2Mesh.py` to preview the annotations as seen here (toggle scan/CADs/BBox):
-
-<img src="Assets/github-pics/alignment.png" alt="" width="700" >
 
 ## Data Generation for *Scan2CAD* Alignment
 
