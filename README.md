@@ -24,6 +24,7 @@ ln -s <path-to-ShapeNet-folder-root> ./Routines/Script/
 
 ```bash
 conda create -n cad python=3.8
+conda activate cad
 pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
 pip install numpy numpy-quaternion plyfile PyWavefront pybind11
 ```
