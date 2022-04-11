@@ -6,7 +6,7 @@
 ScanNet :
 https://github.com/ScanNet/ScanNet
 
-ShapeNet :
+ShapeNet (ShapeNetCore v2.0):
 https://shapenet.org/
 
 Scan2CAD :
@@ -54,11 +54,20 @@ python ./Routines/Script/Annotation2Mesh.py
 python ./Routines/Script/CADVoxelization.py
 ```
 
+For the sdf grid we used a voxel resolution of `3cm` and a truncation distance of `15cm`. 
+
 ### Generate data (correspondences)
 
 ```
 python ./Routines/Script/GenerateCorrespondences.py
 ```
+
+From the *Scan2CAD* dataset this will generate following:
+
+1. Centered crops of the scan
+2. Heatmaps on the CAD (= correspondence to the scan)
+3. Scale (x,y,z) for the CAD
+4. Match (0/1) indicates whether both inputs match semantically
 
 ### Train heatmap prediction:
 
@@ -137,52 +146,6 @@ This file is merely a helper file as the information in this file are deducible 
 },
 ```
 
-## Data Generation for *Scan2CAD* Alignment
-
-### Scan and CAD Repository
-
-In this work we used 3D scans from the [ScanNet](https://github.com/ScanNet/ScanNet) dataset and CAD models from [ShapeNetCore (version 2.0)](https://www.shapenet.org/). If you want to use it too, then you have to send an email and ask for the data - they usually do it very quickly.
-
-Here is a sample (see in `./Assets/scannet-sample/` and `./Assets/shapenet-sample/`):
-
-| ScanNet Color             |  ScanNet Labels |
-:-------------------------:|:-------------------------:
-![](Assets/github-pics/scannet-color.png)  |  ![](Assets/github-pics/scannet-label.png)
-
-| ShapeNet Trashbin             |  ShapeNet Chair | ShapeNet Table |
-:-------------------------:|:-------------------------:|:-------------------------:
-![](Assets/github-pics/shapenet-trashbin.png)  |  ![](Assets/github-pics/shapenet-chair.png) |  ![](Assets/github-pics/shapenet-table.png)
-
-### Voxelization of Data as Signed Distance Function (sdf) and unsigned Distance Function (df) files
-
-The data must be processed such that scans are represented as **sdf** and CADs as **df** voxel grids as illustrated here (see in `./Assets/scannet-voxelized-sdf-sample/` and `./Assets/shapenet-voxelized-df-sample/`):
-
-| ShapeNet Trashbin Vox           |  ShapeNet Chair Vox | ShapeNet Table Vox |
-:-------------------------:|:-------------------------:|:-------------------------:
-![](Assets/github-pics/shapenet-trashbin-vox.png)  |  ![](Assets/github-pics/shapenet-chair-vox.png) |  ![](Assets/github-pics/shapenet-table-vox.png)
-
-In order to create **sdf** voxel grids from the scans, *volumetric fusion* is performed to fuse depth maps into a voxel grid containing the entire scene.
-For the sdf grid we used a voxel resolution of `3cm` and a truncation distance of `15cm`. 
-
-In order to generate the **df** voxel grids for the CADs we used a modification (see `CADVoxelization.py`) of [this](https://github.com/christopherbatty/SDFGen) repo (thanks to @christopherbatty).
-
-### Creating Training Samples
-
-In order to generate training samples for your CNN, you can run `./Routines/Script/GenerateCorrespondences.py`.
-From the *Scan2CAD* dataset this will generate following:
-
-1. Centered crops of the scan
-2. Heatmaps on the CAD (= correspondence to the scan)
-3. Scale (x,y,z) for the CAD
-4. Match (0/1) indicates whether both inputs match semantically
-
-The generated data totals to approximately `500GB`. Here is an example of the data generation (see in `./Assets/training-data/scan-centers-sample/` and `./Assets/training-data/CAD-heatmaps-sample/`)
-
-| Scan Center Vox           |  CAD Heatmap Vox (to be gaussian blurred) |
-:-------------------------:|:-------------------------:|
-![](Assets/github-pics/pair0a.png)  |  ![](Assets/github-pics/pair0b.png) 
-![](Assets/github-pics/pair1a.png)  |  ![](Assets/github-pics/pair1b.png) 
-
 ## Citation
 
 If you use this dataset or code please cite:
@@ -196,3 +159,4 @@ month = {June},
 year = {2019}
 }
 ```
+
