@@ -46,13 +46,15 @@ cd ../..
 ### Visualize data
 
 ```
-python ./Routines/Script/Annotation2Mesh.py
+cd Routines/Script
+python Annotation2Mesh.py
 ```
 
 ### Voxelize CADs (shapenet)
 
 ```
-python ./Routines/Script/CADVoxelization.py
+cd Routines/Script
+python CADVoxelization.py
 ```
 
 For the sdf grid we used a voxel resolution of `3cm` and a truncation distance of `15cm`. 
@@ -60,7 +62,8 @@ For the sdf grid we used a voxel resolution of `3cm` and a truncation distance o
 ### Generate data (correspondences)
 
 ```
-python ./Routines/Script/GenerateCorrespondences.py
+cd Routines/Script
+python GenerateCorrespondences.py
 ```
 
 From the *Scan2CAD* dataset this will generate following:
