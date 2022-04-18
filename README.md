@@ -72,7 +72,6 @@ cd ../../..
 
 ```
 conda activate cad
-cd Routines/Script
 ./run.sh
 ```
 
