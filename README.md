@@ -1,4 +1,4 @@
-# Scan To CAD
+# Scan2CAD
 
 ## Source
 
