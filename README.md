@@ -77,7 +77,7 @@ python GenerateCorrespondences.py # Generate data (correspondences)
 cd ../../Network/pytorch
 ./run.sh # Train heatmap prediction
 cd ../../Routines/Scripts
-python Alignment9DoF.py --projectdir /Network/pytorch/output/dummy # Run alignment algorithm
+python Alignment9DoF.py --projectdir ../../Network/pytorch/output/dummy # Run alignment algorithm
 python Alignment2Mesh.py --alignment ./tmp/alignments/dummy/scene0470_00.csv --out ./ # Mesh and view alignment result
 ```
 
