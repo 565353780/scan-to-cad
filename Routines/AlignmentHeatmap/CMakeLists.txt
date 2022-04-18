@@ -2,7 +2,10 @@ cmake_minimum_required(VERSION 3.0)
 project(alignment_heatmap)
 
 # dependencies
-find_package(Eigen3 3.3 REQUIRED)
+find_package(Eigen3 REQUIRED)
+find_package(Ceres REQUIRED)
+
+set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build) # <-- output dir is build
 

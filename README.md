@@ -23,6 +23,17 @@ ln -s <path-to-ShapeNet-folder-root> ./Routines/Script/
 ## Install Requirements
 
 ```bash
+sudo apt install liblapack-dev libsuitesparse-dev libcxsparse3 libgflags-dev libgoogle-glog-dev libgtest-dev libjsoncpp-dev libeigen3-dev
+sudo ln -s /usr/include/jsoncpp/json/ /usr/include/json
+
+git clone https://ceres-solver.googlesource.com/ceres-solver
+cd ceres-solver
+mkdir build
+cd build
+cmake ..
+make -j4
+sudo make install
+
 conda create -n cad python=3.8
 conda activate cad
 pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
@@ -32,6 +43,7 @@ pip install numpy numpy-quaternion plyfile PyWavefront pybind11
 ## Build
 
 ```bash
+conda activate cad
 cd Routines/Vox2Mesh
 make -j
 cd ../DFGen
@@ -46,6 +58,7 @@ cd ../..
 ## Run
 
 ```
+conda activate cad
 cd Routines/Script
 python Annotation2Mesh.py # Visualize data
 python CADVoxelization.py # Voxelize CADs (shapenet)

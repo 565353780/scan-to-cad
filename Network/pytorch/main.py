@@ -39,7 +39,7 @@ parser.add_argument('--mask_neg', type=int, required=True, default=1, help='mask
 parser.add_argument('--with_match', type=int, required=True, default=1, help='train with negative samples?')
 parser.add_argument('--with_scale', type=int, required=True, default=1, help='train with scale prediction?')
 parser.add_argument('--batch_size', type=int, default=16, help='input batch size')
-parser.add_argument('--max_iteration', type=int, default=int(1e6), help='number of iteration to train for')
+parser.add_argument('--max_iteration', type=int, default=int(1e3), help='number of iteration to train for')
 parser.add_argument('--n_samples_eval', type=int, default=int(1e6), help='num-max to evaluate of val set')
 parser.add_argument('--interval_eval', type=int, default=2000, help='interval for evaluation')
 parser.add_argument('--n_threads', type=int, default=4, help="number of threads")
