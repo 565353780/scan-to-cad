@@ -37,7 +37,7 @@ if __name__ == '__main__':
 
     print("NOTE: Symmetry not handled. You have to take care of it.")
 
-    for r in JSONHelper.read("./full_annotations.json"):
+    for r in JSONHelper.read("./example_annotation.json"):
         id_scan = r["id_scan"]
         if id_scan != "scene0470_00":
             continue

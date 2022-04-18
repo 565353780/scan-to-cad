@@ -1,7 +1,6 @@
 # hidden files
 .*
 
-
 # generated 
 full_annotations.json
 output
@@ -25,7 +24,7 @@ main
 **/scripts/*.txt
 **/scripts/*.csv
 trash
-
+./Assets/training-data/trainset.json
 
 # exception
 !.gitignore
