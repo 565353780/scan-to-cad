@@ -68,7 +68,8 @@ if __name__ == '__main__':
     verts0 = []
     norms0 = []
     scan_file = ""
-    for alignment in CSVHelper.read("./dummy_alignment.csv", skip_header=True):
+    #  for alignment in CSVHelper.read("./dummy_alignment.csv", skip_header=True):
+    for alignment in CSVHelper.read(opt.alignment, skip_header=True):
         id_scan, catid_cad, id_cad = alignment[0:3]
         t = np.asarray(alignment[3:6], dtype=np.float64)
         q = np.asarray(alignment[6:10], dtype=np.float64)
@@ -99,7 +100,7 @@ if __name__ == '__main__':
         cad_mesh = pywavefront.Wavefront(cad_file, collect_faces=True, parse=True)
         Mcad = make_M_from_tqs(t, q, s)
 
-        #print("CAD", cad_file, "n-verts", len(cad_mesh.vertices))
+        #  print("CAD", cad_file, "n-verts", len(cad_mesh.vertices))
         color = (50, 200, 50)
         faces = []
         verts = []
@@ -136,5 +137,4 @@ if __name__ == '__main__':
     with open(filename_ply, mode='wb') as f:
         PlyData(objdata).write(f)
     print("Meshfile generated:", filename_ply)
-
 
