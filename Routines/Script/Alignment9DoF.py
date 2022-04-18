@@ -126,3 +126,4 @@ if __name__ == '__main__':
         JSONHelper.write(outfile, cargo)
         print("scene-visualize:", outfile)
         # <--
+
