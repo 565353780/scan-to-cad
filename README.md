@@ -38,33 +38,28 @@ cd ../DFGen
 make -j
 cd ../CropCentered
 make -j
+cd ../Keypoints2Grid
+make -j
 cd ../..
 ```
 
 ## Run
 
-### Visualize data
-
 ```
 cd Routines/Script
-python Annotation2Mesh.py
+python Annotation2Mesh.py # Visualize data
+python CADVoxelization.py # Voxelize CADs (shapenet)
+python GenerateCorrespondences.py # Generate data (correspondences)
+cd ../../Network/pytorch
+./run.sh # Train heatmap prediction
+cd ../../Routines/Scripts
+python Alignment9DoF.py --projectdir /Network/pytorch/output/dummy # Run alignment algorithm
+python Alignment2Mesh.py --alignment ./tmp/alignments/dummy/scene0470_00.csv --out ./ # Mesh and view alignment result
 ```
 
-### Voxelize CADs (shapenet)
-
-```
-cd Routines/Script
-python CADVoxelization.py
-```
+## Detials
 
 For the sdf grid we used a voxel resolution of `3cm` and a truncation distance of `15cm`. 
-
-### Generate data (correspondences)
-
-```
-cd Routines/Script
-python GenerateCorrespondences.py
-```
 
 From the *Scan2CAD* dataset this will generate following:
 
@@ -72,27 +67,6 @@ From the *Scan2CAD* dataset this will generate following:
 2. Heatmaps on the CAD (= correspondence to the scan)
 3. Scale (x,y,z) for the CAD
 4. Match (0/1) indicates whether both inputs match semantically
-
-### Train heatmap prediction:
-
-```
-cd Network/pytorch
-./run.sh
-```
-
-### Run alignment algorithm:
-
-```
-cd Routines/Scripts
-python Alignment9DoF.py --projectdir /Network/pytorch/output/dummy
-```
-
-### Mesh and view alignment result:
-
-```
-cd Routines/Scripts
-python Alignment2Mesh.py --alignment ./tmp/alignments/dummy/scene0470_00.csv --out ./
-```
 
 ## Format of the Datasets
 
@@ -163,4 +137,6 @@ month = {June},
 year = {2019}
 }
 ```
+
+## Enjoy it~
 

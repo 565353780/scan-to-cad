@@ -35,3 +35,4 @@ if __name__ == "__main__":
 
     with open("./parameters.json", 'w') as outfile:
         json.dump(parameters, outfile, indent=True)
+
