@@ -37,7 +37,7 @@ cd ceres-solver
 mkdir build
 cd build
 cmake ..
-make -j4
+make -j
 sudo make install
 
 conda create -n cad python=3.8
